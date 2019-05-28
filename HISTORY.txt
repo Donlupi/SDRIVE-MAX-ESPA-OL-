@@ -1,0 +1,92 @@
+﻿v1.0:
+- added an optional screen blanker after about 30 seconds idleing
+- debouncing touchscreen calibration and signal green on press
+- added config switch for 1050 mode for ATX files(else 810 mode by default)
+- all drives could now be used for ATX files
+- 810 firmware retry logic(ATX)
+- fixed missing sector handling(ATX)
+- fixed issue with double tracks(ATX)
+- fixed bug on file change(ATX)
+- added red signal(near motor signal on top/left) if write cache not written
+- improved SIO highspeed and fixed write problem
+- added support for HX8347I displays
+
+v0.9:
+- added a tape pause function
+- prevent hang on restore images
+- fixed display bug on insert image
+- hold scrolling filename on begin and end
+- ATX:
+  - corrected FDC status on missing sector
+  - fixed bug in long sector handling
+  - bugfixes for weak sector handling
+  - fixed wrong sector size on errors
+  - fixed an overflow for second drive
+
+v0.8:
+- drive motor simulation
+- support for timing based sector access on ATX files
+- some more fixes in ATX file handling
+- added support for ILI9340 display
+
+v0.7:
+- fixed error in FileFind function
+- fixed scrolling issue on tape- and debug page
+- more sio highpeed fixes
+- support variable block length on FUJI tape files
+- added turbo tape function with 1000 baud
+- show files with unknown extension darker
+- added touchscreen calibration
+- changed colors for more contrast
+
+v0.6:
+- added support for save and restore inserted drive images in EEPROM
+- config option to set first boot drive to D1:
+- internal button structures reorganized to save more RAM
+- fixed wrong calculation of SIO highspeed rates
+- added tape emulation support
+- more retries for SD card init
+- added weak bit handling for ATX files
+
+v0.5:
+- added support for CAS-Files(only raw binary, not such with FUJI header!)
+- fixed bug on file view function(sdrive control) after usage of display
+- fixed bug on change back to D0: after use of file view function
+  (sdrive control) in other directory
+- fixed wrong error handling during read/write commands(Atari was hanging)
+- ATX Support
+
+v0.4:
+- added debug output on sd-card init error
+- more tries for sd-card GO_IDLE_STATE, some cards needs this
+- also more tries for sd-card MMC_SEND_IF_COND
+- added scolling longfilename on headline
+- added actual folder output on status line
+- added support for ILI9329 and HX8347G displays
+- read display id(if necessary)
+- rotate 180Â° function
+- fixed bug in scroll function of outbox
+- added graphical output for eeprom_writer
+- fixed wrong frequency base for delays
+- added config page and store values in eeprom
+- wait for button release, otherways config buttons are bouncing
+
+v0.3:
+- fixed read config from sdrive control
+- made the command line interrupt driven for more stable communication
+- added SIO debug mode
+- some enhancements on the font
+- fixed bug in file create, if next dir sector needed
+
+v0.2:
+- added drive deactivation function
+- improved text output(scrolling, max. length)
+- added page/file counter
+- some bugfixes and optimizations
+
+v0.1:
+- ported to arduino UNO
+- added TFT-Touchscreen support
+- removed debugloader(can be done via Display now)
+- removed bootloader(easy update via arduino USB and avrdude)
+- removed write protection and card detect, not wired on arduino(shield)

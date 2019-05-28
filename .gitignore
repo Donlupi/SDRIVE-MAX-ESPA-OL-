@@ -1,0 +1,5 @@
+atmega328-*/
+!atmega328-*/Makefile
+!atmega328-*/README
+sdrive-ctrl/*.com
+.idea/

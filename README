@@ -1,0 +1,96 @@
+SDrive-MAX
+==========
+
+SDrive-MAX is a new disk drive and tape emulator for Atari 8bit computers
+based on sdrive-ng ported to arduino and enhanced with a touchscreen display
+for controlling. So it can work without sdrive software on the Atari, but
+could be used anyway. Changing disk images during live operation is one of the
+most important features, i think.
+
+What do you need?
+
+- an arduino UNO with atmega328p
+- an Elegoo 2,8" TFT-Touchscreen Shield or similar with ILI9341 compatible
+  controller using 8bit parallel mode(i think, that one from the adafruit
+  project is the same). Touchlines must be wired as followed:
+
+  X+ <-> 8
+  X- <-> A2
+  Y+ <-> A3
+  Y- <-> 9
+
+  The other lines are always the same, as far as i could see
+  (TFT-Data 2-9, -Ctrl. A0-A4, SD 10-13). In doubt, ask!
+
+  Update! Other displays with one of the following chip are now also supported:
+  ILI9329, ILI9340, HX8347G, HX8347I
+- a diode 1N4148 or similar - Update!
+  better use a schottky diode
+- a micro SD-Card(SD or SDHC)
+- some cable and connectors to Atari's SIO-Port
+- avrdude Software for firmware programming
+
+Wirering Arduino <-> Atari-SIO:
+
+  TXD <-> Pin 3 (Data-In, over the diode, cathode to arduino)
+  GND <-> Pin 4	(Ground)
+  RXD <-> Pin 5 (Data-Out)
+  A5  <-> Pin 7 (Command)
+* +5V <-> Pin 10 (+5V/Ready)
+
+*Optional, if you want power from Atari, but then you can't use Display
+ while Atari ist powered off!
+ Update! We strongly recommend to use an external power supply, because the
+ Atari is specified at 50mA max., and Sdrive-MAX needs about 150mA!
+ Voltage drop on the SIO lines will make curious problems especially in
+ conjunction with other devices!
+
+Firmware programming:
+
+First use the eeprom-writer.hex to set the correct values to the EEPROM!
+Wait until the writer has done, then programm the SDrive.hex into the flash.
+That's it!
+
+Display usage:
+
+- On first start follow touching the calibration crosses. You can redo this
+  at any time by hold touching during startup. This have to be also done,
+  if you have changed the display rotation.
+- Press drive buttons in the middle to select the actual boot drive (D1:)
+  (on startup always the internal drive D0: with SDRIVE.ATR loaded is selected
+  for old sdrive(-ng) compatibility)
+- Press drive buttons on the left do deactivate the drive
+- Press dirve buttons on the right at the disk logo to insert an image
+- D0: can only be selected as boot drive, not changed
+- If you want to boot from an external drive, select an empty drive slot as D1:!
+- Press on the New button will create a new image on the selected drive
+  during the next format command
+- Press on the output window at bottom will open SIO debug mode. To close
+  press anywhere on the screen
+- File select window should be self descripting
+- To save selected images on EEPROM, press the Cfg button, highlight
+  the SaveIm button, and press Save
+- If you want also to boot from drive 1 by default, highlight the BootD1
+  button too before pessing Save
+- The "1050" option in Cfg menu uses timing for 1050 drive on ATX files,
+  instead of 810
+- Do not power off, while the red signal on top left of the screen appears,
+  then the write cache was not written to SD!
+
+Tape operation:
+
+- point the actual boot drive (D1:) to an empty slot(some loader won't start,
+  if a disk drive is active)
+- press Tape: button and select an image of type FUJI or raw binary
+- hold down the START & OPTION keys on the atari and power on
+- press any key to start tape operation after the burp
+- and press the Start button on sdrive-max immediately
+- if a multi stage loader requires a key press to go on, then do this quick,
+  because the tape does not hold! (we have no motor signal connected)
+- to stop hold down the Start button until the next block loading
+- the tape is automatically rewind, so you could start again from beginning
+  at this point
+- press the Turbo button, if you want to enable a 1000 baud transmission
+- exit ends the tape emulation
+
+(by KBr from forum64.de)
